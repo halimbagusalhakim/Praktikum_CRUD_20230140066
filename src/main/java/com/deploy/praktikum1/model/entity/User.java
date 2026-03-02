@@ -10,7 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table
+@Table(name = "users")
 @Data
 @Builder
 @AllArgsConstructor
@@ -25,4 +25,5 @@ public class User {
 
     @Column(name = "age", nullable = false)
     private int age;
+
 }
