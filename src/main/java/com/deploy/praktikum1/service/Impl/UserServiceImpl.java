@@ -55,11 +55,24 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto updateUser(String id, UserAddRequest request) {
-        return null;
+        validationUtil.validate(request);
+
+        User existingUser = userRepository.findById(id).orElseThrow(() -> new RuntimeException("user not found"));
+        User user =User.builder()
+                .id(existingUser.getId())
+                .name(request.getName())
+                .age(request.getAge())
+                .build();
+        userRepository.save(user);
+
+        return UserMapper.MAPPER.toUserDtoData(user);
     }
 
     @Override
     public void DeleteUser(String id) {
+        User user = userRepository.findById().orElseThrow(() -> RuntimeException("user not found"));
+
+        userRepository.delete(user);
 
     }
 }
